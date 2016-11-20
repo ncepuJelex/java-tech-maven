@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>主页</title>
+<link rel="stylesheet" href="/tech-web/css/bootstrap.css" />
+<link rel="stylesheet" href="/tech-web/css/bootstrap.css.map" />
+<link rel="icon" href="/tech-web/img/favicon.ico" type="image/x-icon" />
+<script type="text/javascript" src="/tech-web/js/jquery.js"></script>
+<script type="text/javascript" src="/tech-web/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#login").click(function() {
+			$.ajax({
+				type : "GET",
+				url : "/tech-web/user/login.do",
+				error : function() {
+					alert("系统异常，请稍候重试!");
+				}
+
+			});
+		});
+	});
+</script>
+</head>
+<body>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1>欢迎您的到来！</h1>
+			<p>Home Page</p>
+			<p>
+				<button id="login" class="btn btn-success active" type="button">登录</button>
+			</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6 thumbnail">
+			<a href="#"><img src="/img/Outbreak.jpg"></a>
+			<div class="caption">
+				<h4>越狱</h4>
+			</div>
+		</div>
+		<div class="col-md-6 thumbnail">
+			<a href="#"><img src="/img/Sala.jpg"></a>
+			<div class="caption">
+				<h4>Sala</h4>
+			</div>
+		</div>
+
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jel.tech.dao.DeptDao">
+
+	<insert id="saveCollege" parameterType="dept">
+		INSERT INTO t_dept (dept_name,parent_id,icon,`order`) VALUES
+		(#{deptName},#{parentId},#{icon},#{order})
+	</insert>
+	
+	<insert id="saveCollegeSelective" parameterType="dept">
+		INSERT INTO t_dept
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="deptName != null">
+				dept_name,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="order != null">
+				`order`
+			</if>
+		 </trim>
+		  <trim prefix="values (" suffix=")" suffixOverrides="," >
+		      <if test="deptName != null" >
+		        #{deptName},
+		      </if>
+		      <if test="parentId != null" >
+		        #{parentId},
+		      </if>
+		      <if test="icon != null" >
+		        #{icon},
+		      </if>
+		      <if test="order != null" >
+		       #{order}
+		      </if>
+		    </trim>
+	</insert>
+
+	<select id="queryDepts" resultMap="deptMap" >
+		select * from t_dept
+	</select>
+	
+	<select id="queryDeptsByKeywords" resultMap="deptMap" parameterType="QueryVo">
+		select * from t_dept
+		<where>
+			<if test="keywords != null">
+				dept_name = #{keywords}
+			</if>
+		</where>
+		<if test="offset >= 0 and pageSize > 0" >  
+			  LIMIT #{offset}, #{pageSize}  
+		</if> 
+	</select>
+	
+	<resultMap type="Dept" id="deptMap">
+		<id column="dept_id"  property="deptId"/>
+		<result property="deptName" column="dept_name" />
+		<result property="parentId" column="parent_id" />
+		<result property="icon" column="icon" />
+		<result property="order" column="order" />
+	</resultMap> 
+	
+	<select resultType="integer" id="queryDeptCount" parameterType="java.lang.String">
+		select count(*) from t_dept
+		<where>
+			<if test="keywords != null">
+				dept_name = #{keywords}
+			</if>
+		</where>
+	</select>
+		
+</mapper> 
