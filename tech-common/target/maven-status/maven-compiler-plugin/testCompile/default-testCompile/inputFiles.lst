@@ -1,6 +1,6 @@
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/test/java/com/jel/tech/common/JaxbUtilsTest.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/test/java/com/jel/tech/common/model/Person.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/test/java/com/jel/tech/common/GsonTest.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/test/java/com/jel/tech/common/DomUtilsTest.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/test/java/com/jel/tech/common/model/Point.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/test/java/com/jel/tech/common/model/Address.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/test/java/com/jel/tech/common/model/Point.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/test/java/com/jel/tech/common/model/Person.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/test/java/com/jel/tech/common/DomUtilsTest.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/test/java/com/jel/tech/common/model/Address.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/test/java/com/jel/tech/common/GsonTest.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/test/java/com/jel/tech/common/JaxbUtilsTest.java

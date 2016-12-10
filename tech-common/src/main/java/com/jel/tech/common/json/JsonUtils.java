@@ -9,10 +9,6 @@ import com.google.gson.GsonBuilder;
  * JSON 工具类
  * @author Jelex
  *
- *	if you want to parse the json String without using the relevant JavaBean Object,
- *	maybe JsonObject and JsonArray are your choice,move to the GsonTest#test3()
- *	and GsonTest#test4(),which are two simple examples as how to parse the json string
- *	in another way.
  */
 public class JsonUtils {
 

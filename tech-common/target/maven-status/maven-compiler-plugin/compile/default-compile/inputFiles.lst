@@ -1,7 +1,7 @@
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/main/java/com/jel/tech/common/xml/JaxbUtils.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/main/java/com/jel/tech/common/json/JsonUtils.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/main/java/com/jel/tech/common/restful/RestfulResponse.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/main/java/com/jel/tech/common/restful/RestfulUtils.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/main/java/com/jel/tech/common/xml/DomUtils.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/main/java/com/jel/tech/common/date/DateUtils.java
-/Users/zhenhua/Java/STS/tech-parent/tech-common/src/main/java/com/jel/tech/common/restful/RestfulRequest.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/main/java/com/jel/tech/common/restful/RestfulResponse.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/main/java/com/jel/tech/common/date/DateUtils.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/main/java/com/jel/tech/common/xml/DomUtils.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/main/java/com/jel/tech/common/xml/JaxbUtils.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/main/java/com/jel/tech/common/json/JsonUtils.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/main/java/com/jel/tech/common/restful/RestfulRequest.java
+/Users/zhenhua/Java/STS/java-tech/tech-common/src/main/java/com/jel/tech/common/restful/RestfulUtils.java

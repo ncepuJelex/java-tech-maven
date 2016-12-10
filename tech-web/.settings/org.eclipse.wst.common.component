@@ -16,9 +16,6 @@
         <dependent-module archiveName="model-public-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/model-public/model-public">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="tech-mongodb-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/tech-mongodb/tech-mongodb">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="tech-web"/>
         <property name="java-output-path" value="/tech-web/target/classes"/>
     </wb-module>
