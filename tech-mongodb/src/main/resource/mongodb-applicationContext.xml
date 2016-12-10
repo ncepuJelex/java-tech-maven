@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:repository="http://www.springframework.org/schema/data/repository"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.8.xsd
+		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.11.xsd">
+
+	<!-- 这是最简单的配置了，但可惜了，这种配置方式已经被deprecated -->
+	<!-- <mongo:mongo host="localhost" port="27017"></mongo:mongo>	 -->
+	<context:component-scan base-package="com.jel.tech.mongodb" />
+	
+	<context:property-placeholder location="classpath:mongo.properties"/>
+	
+	<mongo:mongo-client id="mongoClient" host="${mongo.host}" port="${mongo.port}" replica-set="${mongo.repliSet}">
+		<mongo:client-options 
+			connect-timeout="${mongo.connectTimeout}"
+			connections-per-host="${mongo.connectionsPerHost}"
+			max-wait-time="${mongo.maxWaitTime}"
+			socket-keep-alive="${mongo.socketKeepAlive}"
+			socket-timeout="${mongo.socketTimeout}" 
+			threads-allowed-to-block-for-connection-multiplier="${mongo.threadsAllowedToBlockForConnectionMultiplier}"
+			write-concern="JOURNAL_SAFE" />
+	</mongo:mongo-client>
+
+	<!-- id属性默认为mongoDbFactory，当然你可以使用id指定其它名称 -->
+	<!-- 你也可把配置单独抽出放到properties文件中，使用${}形式读取 -->
+	<mongo:db-factory id="mongoDbFactory"
+		dbname="learn" 
+		host="localhost"	
+		port="27017"
+		mongo-ref="mongoClient" />
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+	</bean>
+	<mongo:repositories base-package="com.jel.tech.mongodb.dao" />
+	
+</beans>

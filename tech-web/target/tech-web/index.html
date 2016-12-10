@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>主页</title>
+<link rel="stylesheet" href="/tech-web/css/bootstrap.css" />
+<link rel="stylesheet" href="/tech-web/css/bootstrap.css.map" />
+
+<link rel="stylesheet" href="/tech-web/css/jquery.dataTables.css" />
+
+<link rel="stylesheet" href="/tech-web/css/bootstrapValidator.min.css" />
+<link rel="stylesheet" href="/tech-web/css/style.min.css" />
+
+<link rel="stylesheet" href="/tech-web/fonts/glyphicons-halflings-regular.eot" />
+<link rel="stylesheet" href="/tech-web/fonts/glyphicons-halflings-regular.svg" />
+<link rel="stylesheet" href="/tech-web/fonts/glyphicons-halflings-regular.ttf" />
+<link rel="stylesheet" href="/tech-web/fonts/glyphicons-halflings-regular.woff" />
+
+<script type="text/javascript" src="/tech-web/js/jquery-1.12.3.js"></script>
+<script type="text/javascript" src="/tech-web/js/bootstrap.js"></script>
+<script type="text/javascript" src="/tech-web/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/tech-web/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="/tech-web/js/bootstrapValidator.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		
+		 $('#collegeAddForm').bootstrapValidator({
+		        message: 'This value is not valid',
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok',
+		            invalid: 'glyphicon glyphicon-remove',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		             parentId : {
+						validators : {
+							callback : {
+								message : 'sb,必填哦！',
+									callback : function(value, validator) {
+									console.log(value);
+									return (value != '-1');
+								}
+							}
+						}
+					},
+		            
+		            collegeName: {
+		                validators: {
+		                    notEmpty: {
+		                        message: '大学名称必填！'
+		                    }
+		                }
+		            },
+		            collegeImg: {
+		                validators: {
+		                    notEmpty: {
+		                        message: '必须上传啊sb'
+		                    }
+		                }
+		            }
+		        }
+		    });
+		 /* $("#collegeImg").change(function() {
+			var collegeImg = new FormData();
+			collegeImg.append("collegeImg",document.getElementById("collegeImg").files[0]);
+            $.ajax({
+               type:"post",
+               url:"/tech-web/dept/uploadCollegeImg.do",
+               aysnc : false,
+               data:collegeImg,
+               processData:false,
+               contentType:false,
+               dataType:'text',
+               
+               success:function(data){
+                   console.log("over..");
+                   console.log(data);
+                   alert(data.msg);
+               },
+               error:function(e){
+                   alert("错误！！");
+               }
+           });        
+		  }); */
+		 
+		$("#saveCollege").click(function() {
+			// alert($("#collegeAddForm").serialize());
+			 var collegeImg = new FormData($("#collegeImg")[0]);
+			 console.log(collegeImg);
+			 alert(collegeImg);
+			 var data={"parentId":$("#parentId").val(),"collegeName":$("#collegeName").val()};
+			 //console.log(data);
+			 //alert(JSON.stringify(data));
+			 //console.log(JSON.stringify(data));
+			 $.ajax({
+			      type: 'POST',
+				  url : '/tech-web/dept/saveDept.do',
+				  data:JSON.stringify(data),
+				  contentType: "application/json",
+				  processData:false,
+				  async: false,
+				  dataType: 'json',
+			      success : function(msg) {
+			    	  alert(msg.msg);
+			      },
+			      error : function(msg) {
+			    	  alert('error');
+			      }
+			  })
+		 });
+		
+		$("#ajaxdt").click(function() {
+
+			 var otable = $("#example").dataTable();
+			 if(otable) {
+				 otable.fnDestroy();
+			 }
+			
+			 $("#example").dataTable({  
+				 
+				  'serverSide': true,  
+				  
+				  'ajax' : {
+					  'url' : '/tech-web/datatable/getJsonData.do',
+					  'dataType': 'jsonp',  
+				      'type': 'GET'
+				    /*   'data' : {'keywords':''} */
+				  },
+				  
+				  'aoColumns': [
+				  		{'data':'deptId'},
+				  		{'data':'deptName'},
+				  		{'data':'parentId'},
+				  		{'data':'icon'},
+				  		{'data':'order'}
+			 	  ],
+			 	  
+			 	  'aaSorting': [['0', 'desc']],
+			 	 
+			 	  
+			 	  //显示隐藏功能还是好使的！！！
+			 	  /* "columnDefs": [
+	 	               {
+	 	                   "targets": [ 2 ],
+	 	                   "visible": false,
+	 	                   "searchable": false
+	 	               }
+			 	   ] */
+			 	   
+			 	  "bFilter": false,
+			 	 "lengthMenu":[[5,10,25,50],[5,10,25,50]],
+			 		"pageLength": 5,//使用这个有瑕疵
+			 		"pagingType": "full_numbers",
+			 	 	"language": {
+			 	 		"decimal":        "",
+				 	    "emptyTable":     "表中没有数据哦~",
+				 	    "info":           "显示 _START_ 至 _END_ / _TOTAL_ 条记录",
+				 	    "infoEmpty":      "0条信息展示",
+				 	    "infoFiltered":   "(从 _MAX_ 条记录中过滤出)",
+				 	    "infoPostFix":    "",
+				 	    "thousands":      ",",
+				 	    "lengthMenu":     "显示 _MENU_记录",
+				 	    "loadingRecords": "拼命加载中...",
+				 	    "processing":     "处理中...",
+				 	    "search":         "搜索:",
+				 	    "zeroRecords":    "没找到匹配的记录！",   
+				 	    "paginate": {
+				 	      "first": "首页",
+				 	     "previous": "上一页",
+				 	     "next": "下一页",
+				 	      "last" : "尾页"
+				 	    },
+				 	    
+				 	
+				 	  /*  "aria": {
+					         "sortAscending":  ": activate to sort column ascending",
+					         "sortDescending": ": activate to sort column descending"
+					     } */
+			 	  },
+			 	 
+			 	  
+			});
+		});
+		
+	});
+	
+	
+	
+</script>
+</head>
+<body>
+
+	<div class="jumbotron">
+		<div class="container">
+			<p>
+				<button id="ajaxdt" class="btn btn-success" type="button">ajax-datatable</button>
+				&nbsp;<a href="views/index2.html" type="button" role="btn">index2</a>
+			</p>
+			
+			<div class="container">
+                    <form id="collegeAddForm" name="collegeAddForm" method="post" class="form-horizontal" enctype="multipart/form-data">
+                          	<div class="form-group">
+                                <label class="col-lg-3 control-label">所属大学</label>
+                                <div class="col-lg-5">
+                                    <select name="parentId" id="parentId" class="form-control">
+                                        <option value="-1">请选择</option>
+                                        <option value="10">综合大学</option>
+                                        <option value="11">专业大学</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">大学名称</label>
+                                <div class="col-lg-5">
+                                    <input type="text" class="form-control" name="collegeName" id="collegeName"/>
+                                </div>
+                            </div>
+
+							<div class="form-group">
+								<label class="col-lg-3 control-label">上传大学头像</label>
+								<div class="col-lg-5">
+									<input type="file" name="collegeImg" id="collegeImg" multiple="multiple">
+								</div>
+							</div>
+                      
+							<div class="col-md-offset-2">
+								<button class="btn btn-success active" type="submit" id="saveCollege">提交表单</button>
+							</div>
+                    </form>
+            </div>
+			
+		</div>
+	</div>
+
+	<div class="container">
+		<!-- <form action="" id="form" method="GET"> -->
+			<table id="example" class="table table-striped" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>部门编号</th>
+						<th>部门名称</th>
+						<th>上级部门</th>
+						<th>校徽</th>
+						<th>排名</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		<!-- </form> -->
+	</div>
+	<div class="row">
+		<div class="col-md-6 thumbnail">
+			<a href="#"><img src="images/Outbreak.jpg"></a>
+			<div class="caption">
+				<h4>越狱</h4>
+			</div>
+		</div>
+		<div class="col-md-6 thumbnail">
+			<a href="#"><img src="images/Sala.jpg"></a>
+			<div class="caption">
+				<h4>Sala</h4>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

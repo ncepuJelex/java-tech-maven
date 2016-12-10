@@ -1,0 +1,8 @@
+com/jel/tech/model/DataTable.class
+com/jel/tech/model/College.class
+com/jel/tech/model/QueryVo.class
+com/jel/tech/model/User.class
+com/jel/tech/model/Dept.class
+com/jel/tech/model/Tree.class
+com/jel/tech/message/ResponseMessage.class
+com/jel/tech/message/ResponseStatus.class

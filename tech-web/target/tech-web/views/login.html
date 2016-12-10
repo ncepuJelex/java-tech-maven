@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/tech-web/css/bootstrap.css" />
+<link rel="stylesheet" href="/tech-web/css/bootstrap.css.map" />
+<link rel="icon" href="/tech-web/img/favicon.ico" type="image/x-icon" />
+<script type="text/javascript" src="/tech-web/js/jquery.js"></script>
+<script type="text/javascript" src="/tech-web/js/bootstrap.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#login").click(function() {
+			$.ajax({
+				type : "POST",
+				url : "/tech-web/user/login.do",
+				data : $("#form").serialize(),
+				async : false,
+				success : function(msg) {
+					window.location.href = "/tech-web/views/" + msg + ".html";
+				},
+				error : function() {
+					alert("系统异常，请稍候重试!");
+					return;
+				}
+			});
+			
+		});
+	});
+</script>
+</head>
+<body>
+<body style="padding:50px;background-color:#ccc;">
+
+	<div class="container" style="padding:50px;background-color:#fff;">
+		
+		<form id="form" class="form-horizontal">
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="userName">用户名：</label>
+				<div class="col-md-10">
+					<input type="text" name="userName" class="form-control" id="userName" placeholder="请输入用户名">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="password">密码：</label>
+				<div class="col-md-10">
+					<input type="password" class="form-control" name="password" id="password" placeholder="请输入密码">
+				</div>
+			</div>
+			<div class="col-md-offset-2">
+				<button id="login" class="btn btn-success active" type="button">登录</button>
+			</div>
+			
+		</form>
+
+	</div>
+
+ </body>
+
+</body>
+</html>
