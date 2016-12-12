@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,14 +41,14 @@ public class DatatableHandler {
 		if(length == null) {
 			length = 5;
 		}
-		 
-	    Map<String, Object> map = new HashMap<>();  
+		Map<String, Object> map = new HashMap<>();  
+	    PageRequest pageable = new PageRequest((start / length), length);  
 	    int totalCount = deptService.queryDeptCount(keywords);  
 
 	    QueryVo vo = new QueryVo();
 	    vo.setKeywords(keywords);
-	    vo.setOffset(start / length);
-	    vo.setPageSize(length);
+	    vo.setPageable(pageable);
+	    
 	    List<Dept> results = deptService.queryDeptsByKeywords(vo);
 	    
 	   /**

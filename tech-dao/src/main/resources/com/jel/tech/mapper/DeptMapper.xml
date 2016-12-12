@@ -52,8 +52,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				dept_name = #{keywords}
 			</if>
 		</where>
-		<if test="offset >= 0 and pageSize > 0" >  
-			  LIMIT #{offset}, #{pageSize}  
+		<if test="pageable.offset >= 0 and pageable.pageSize > 0" >  
+			  LIMIT #{pageable.offset}, #{pageable.pageSize}  
 		</if> 
 	</select>
 	
