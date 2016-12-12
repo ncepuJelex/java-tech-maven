@@ -1,33 +1,27 @@
 package com.jel.tech.model;
 
-/**
- * datatable 查询VO类
- * @author zhenhua
- *
- */
+import org.springframework.data.domain.PageRequest;
+
 public class QueryVo {
 
 	private String keywords;
-	private int offset;
-	private int pageSize;
 	
+	private PageRequest pageable;
+
 	public String getKeywords() {
 		return keywords;
 	}
+
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
 	}
-	public int getOffset() {
-		return offset;
+
+	public PageRequest getPageable() {
+		return pageable;
 	}
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
-	public int getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+
+	public void setPageable(PageRequest pageable) {
+		this.pageable = pageable;
 	}
 	
 	
