@@ -4,16 +4,16 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Persistent;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
@@ -52,7 +52,7 @@ import com.mongodb.WriteResult;;
 @ContextConfiguration(locations = "classpath:mongodb-applicationContext.xml")
 public class MongoTest {
 
-	private static final Log log = LogFactory.getLog(MongoTest.class);
+	private static final Logger log = LoggerFactory.getLogger(MongoTest.class);
 	
 	//无name属性也可
 	@Resource(name="mongoTemplate")
@@ -60,8 +60,7 @@ public class MongoTest {
 	
 	@Resource(name=PersonService.BeanName)
 	PersonService personService;
-	
-	@Persistent
+	@Autowired
 	PersonRepository repository;
 
 	@Test
@@ -69,7 +68,7 @@ public class MongoTest {
 //		mongoOps.insert(new Person("1002", "高圆圆", 26));
 		//就不要指定主键了，不然还得自己维护它
 		mongoOps.insert(new Person("高圆圆", 26));
-		log.info(mongoOps.findOne(new Query(where("name").is("高圆圆")), Person.class));
+		log.info(mongoOps.findOne(new Query(where("name").is("高圆圆")), Person.class).toString());
 
 		// mongoOps.dropCollection(Person.class);
 	}
@@ -100,19 +99,19 @@ public class MongoTest {
 	@Test
 	public void testUpdateFirst() {
 		WriteResult writeResult = mongoOps.updateFirst(query(where("name").is("高圆圆")), new Update().inc("age", -1), Person.class);
-		log.info(writeResult);
+		log.info(writeResult.toString());
 	}
 	
 	@Test
 	public void testUpdateMulti() {
 		WriteResult writeResult = mongoOps.updateMulti(query(where("name").is("高圆圆")), update("age","28"), Person.class);
-		log.info(writeResult);
+		log.info(writeResult.toString());
 	}
 	
 	@Test
 	public void testUpsert() {
 		WriteResult writeResult = mongoOps.upsert(query(where("name").is("CR7").and("age").is(31)), new Update().set("name","CR7").set("age", 31), Person.class);
-		log.info(writeResult);
+		log.info(writeResult.toString());
 	}
 	
 	@Test
@@ -127,13 +126,13 @@ public class MongoTest {
 		//this will return the old object
 		Person p = mongoOps.findAndModify(query, update, Person.class);
 		
-		log.error(p); //age is 23
+		log.error(p.toString()); //age is 23
 		
 		p = mongoOps.findOne(query, Person.class);
-		log.fatal(p); // now age is 24
+		log.error(p.toString()); // now age is 24
 		
 		p = mongoOps.findAndModify(query, update, new FindAndModifyOptions().returnNew(true).upsert(true), Person.class);
-		log.info(p); // the new updated person
+		log.info(p.toString()); // the new updated person
 		
 //		mongoOps.remove(p);//删除
 	}
@@ -161,9 +160,11 @@ public class MongoTest {
 	@Test
 	public void testBasicQuery() {
 		BasicQuery query = new BasicQuery("{age:{$gte:28},name:'Dony'}");
+		log.info("ready to search..");
 //		BasicQuery query = new BasicQuery("{age:{$gte:28},name:'Dony','address.weichat':/^weichat/}");
 		List<Person> result = mongoOps.find(query, Person.class);
-		System.out.println(result);
+		log.info("============================");
+		log.info("the result:{},date:{}", result,new Date());
 	}
 	/*
 	 * 查询子文档
