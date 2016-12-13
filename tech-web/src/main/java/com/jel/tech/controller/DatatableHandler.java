@@ -25,8 +25,8 @@ public class DatatableHandler {
 
 	@Autowired
 	private DeptService deptService;
-	
-	 @RequestMapping(value = "/getJsonData.do",method=RequestMethod.GET, produces = "text/plain;charset=utf-8")  
+
+	@RequestMapping(value = "/getJsonData.do",method=RequestMethod.GET, produces = "text/plain;charset=utf-8")  
 	  @ResponseBody  
 	  public String getJsonData(HttpServletRequest req,   
 		      @RequestParam(required = false) String callback,  
@@ -41,9 +41,12 @@ public class DatatableHandler {
 		if(length == null) {
 			length = 5;
 		}
-		Map<String, Object> map = new HashMap<>();  
+		int totalCount = deptService.queryDeptCount(keywords);  
+		if(length == -1) {
+			length = totalCount;
+		}
+	    Map<String, Object> map = new HashMap<>();  
 	    PageRequest pageable = new PageRequest((start / length), length);  
-	    int totalCount = deptService.queryDeptCount(keywords);  
 
 	    QueryVo vo = new QueryVo();
 	    vo.setKeywords(keywords);
@@ -68,6 +71,6 @@ public class DatatableHandler {
 	    obj.addParameter(map);
 	    
 	    return obj.toString();
-	  }  
+	  } 
 
 }
