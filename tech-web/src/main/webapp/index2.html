@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf" />
 
 <link rel="stylesheet" href="css/datatables.min.css" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
 <script type="text/javascript" src="js/datatables.min.js"></script>
 
 <script type="text/javascript">
@@ -36,7 +38,19 @@
 			  		{'data':'deptName'},
 			  		{'data':'parentId'},
 			  		{'data':'icon'},
-			  		{'data':'order'}
+			  		{'data':'order'},
+			  		{'data':"deptId","render": function (data, type, row) {
+						    return '<div class="dropdown text-center">'
+ 						    +'  <span class="glyphicon glyphicon-cog" data-toggle="dropdown"'
+ 						    +'	aria-haspopup="true" aria-expanded="false" style="cursor:pointer;"></span>'
+ 						    +'  <ul class="dropdown-menu" aria-labelledby="dLabel">'
+ 						    +'  <li><a href="#" data-toggle="modal" data-target="#employeeManageModal" onclick="EmployeeMain.edit(\''+row.employeeId+'\')">修改</a></li> '
+ 						    +'  <li><a href="#" onclick="EmployeeMain.deleteInfo(\''+row.employeeId+'\')">删除</a></li> '
+ 						    +'  <li><a href="#" data-toggle="modal" data-target="#userAddModal" onclick="EmployeeMain.addUser(\''+row.employeeId+'\')">用户管理</a></li> '
+ 						    +'  </ul>'
+ 						    +'</div>';
+ 							}
+			  		}
 		 	  ],
 		 	  
 		 	  'aaSorting': [['0', 'DESC']],  
@@ -56,6 +70,7 @@
 						<th>上级部门</th>
 						<th>校徽</th>
 						<th>排名</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody></tbody>
