@@ -20,39 +20,9 @@
 <script type="text/javascript">
 	$(function() {
 		$("#ajaxdt").click(function() {
-
-			 var otable = $("#example").dataTable();
-			 if(otable) {
-				 otable.fnDestroy();
-			 }
-			
-			 $("#example").dataTable({  
-				 
-				  'serverSide': true,  
-				  
-				  'ajax' : {
-					  'url' : '/tech-web/datatable/getJsonData.do',
-					  'dataType': 'jsonp',  
-				      'type': 'GET'
-				    /*   'data' : {'keywords':''} */
-				  },
-				  
-				  'aoColumns': [
-				  		{'data':'deptId'},
-				  		{'data':'deptName'},
-				  		{'data':'parentId'},
-				  		{'data':'icon'},
-				  		{'data':'order'}
-			 	  ],
-			 	  
-			 	  'aaSorting': [['0', 'DESC']],  
-			 	  
-			});
+			window.location.href = "index2.html";
 		});
 	});
-	
-	
-	
 </script>
 </head>
 <body>
@@ -82,22 +52,6 @@
 	</div>
 
 	<div class="row">
-		<form action="" id="form" method="GET">
-			<table id="example" class="display">
-				<thead>
-					<tr>
-						<th>部门编号</th>
-						<th>部门名称</th>
-						<th>上级部门</th>
-						<th>校徽</th>
-						<th>排名</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-		</form>
-	</div>
-	<div class="row">
 		<div class="col-md-6 thumbnail">
 			<a href="#"><img src="images/Outbreak.jpg"></a>
 			<div class="caption">
@@ -111,7 +65,5 @@
 			</div>
 		</div>
 	</div>
-
-
 </body>
 </html>

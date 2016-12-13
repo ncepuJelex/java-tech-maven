@@ -3,199 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <title>主页</title>
-<link rel="stylesheet" href="/tech-web/css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff" />
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2" />
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf" />
 
-<link rel="stylesheet" href="/tech-web/css/jquery.dataTables.css" />
-
-<link rel="stylesheet" href="/tech-web/css/style.min.css" />
-<link rel="stylesheet" href="/tech-web/img/32px.png" />
-<link rel="stylesheet" href="/tech-web/img/throbber.gif" />
-
-
-<link rel="icon" href="/tech-web/images/favicon.ico"
-	type="image/x-icon" />
-<script type="text/javascript" src="/tech-web/js/jquery-1.12.3.js"></script>
-<script type="text/javascript" src="/tech-web/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/tech-web/js/jstree.js"></script>
-<script type="text/javascript" src="/tech-web/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/tech-web/js/dataTables.bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="css/datatables.min.css" />
+<script type="text/javascript" src="js/datatables.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
-
-		$("#jstree").click(function() {
-
-			var jstreeData;
-
-			$.ajax({
-				type : "GET",
-				url : "/tech-web/dept/jstree.do",
-				async : false,
-				success : function(result) {
-					alert("ok~");
-					console.log(result);
-					jstreeData = result.others;
-				},
-				error : function() {
-					alert("系统在休息哦~");
-					return;
-				}
-			});
-
-			$("#apiTreePanel").jstree({
-				"core" : {
-					"check_callback" : true, // enable all modifications
-					"data" : jstreeData
-				},
-				"plugins" : [ "checkbox", "contextmenu" ]
-			/* "contextmenu" : {
-				items : contextmenu
-			} */
-
-			}).on("select_node.jstree", function(e, data) {
-				console.log(data);
-			});
-
-		});
-
-		$("#ajaxdt").click(function() {
-
-			 $("#example").DataTable({
-				/*  "pagingType" : "full_numbers",
-		         "language": {
-		             "paginate": {
-		                 "first": "首页",
-		                 "previous": "上一页",
-		                 "next": "下一页",
-		                 "last" : "末页"
-		             },
-		             "lengthMenu": "每页显示 _MENU_ 条",
-		             "zeroRecords": "抱歉，没找到记录！",
-		             "info": "显示页_PAGE_/_PAGES_",
-		             "infoEmpty": "无记录哦，亲！",
-		             "infoFiltered": "(从 _MAX_ 条记录中找出)"
-		         }, */
-		         "processing": true,
-		         "serverSide": true,
-		         "ajax": "/tech-web/dept/datable3.do"
-			 }); 
-
-		});
+		 var otable = $("#example").dataTable();
+		 if(otable) {
+			 otable.fnDestroy();
+		 }
 		
-
-		/* 	 $("#example").DataTable({
-		         "pagingType" : "full_numbers",
-		         "language": {
-		             "paginate": {
-		                 "first": "首页",
-		                 "previous": "上一页",
-		                 "next": "下一页",
-		                 "last" : "末页"
-		             },
-		             "lengthMenu": "每页显示 _MENU_ 条",
-		             "zeroRecords": "抱歉，没找到记录！",
-		             "info": "显示页_PAGE_/_PAGES_",
-		             "infoEmpty": "无记录哦，亲！",
-		             "infoFiltered": "(从 _MAX_ 条记录中找出)"
-		         }
-		     }); */
-
-		/* 
-		 var contextmenu = function(node) {
-		 var items = {
-		 "add" : {
-		 "label" : "创建",
-		 "action" : function() {
-		 $("#apiServiceContent").html(
-		 "<p>" + node.original.text + "</p>");
-		 //window.location.href = "http://www.jd.com";//会跳到京东了,明天再做吧！
-		 }
-		 },
-		 "delete" : {
-		 "label" : "删除",
-		 "action" : function() {
-		 }
-		 }
-		 }
-		 return items;
-		 };
-		 */
+		 $("#example").dataTable({  
+			  'serverSide': true,  
+			  "pagingType": "full_numbers",
+			  "searching":false,
+              "lengthMenu": [ [10,15,20,-1], [10,15,20,"所有"] ],
+              "language": {
+                  "url": "js/luaguage.json"
+              },
+			  'ajax' : {
+				  'url' : '/tech-web/datatable/getJsonData.do',
+				  'dataType': 'jsonp',  
+			      'type': 'GET'
+			  },
+			  
+			  'aoColumns': [
+			  		{'data':'deptId'},
+			  		{'data':'deptName'},
+			  		{'data':'parentId'},
+			  		{'data':'icon'},
+			  		{'data':'order'}
+		 	  ],
+		 	  
+		 	  'aaSorting': [['0', 'DESC']],  
+		});
 	});
 </script>
 </head>
 <body>
-
-	<div class="jumbotron">
-		<div class="container">
-			<h1>欢迎您的到来！</h1>
-			<p>
-				<button id="jstree" class="btn btn-success" type="button">jstree</button>
-				&nbsp;&nbsp;
-				<button id="ajaxdt" class="btn btn-success" type="button">ajax-datatable</button>
-			</p>
-		</div>
+	<div class="container">
+		
+		<form action="" id="form" method="GET">
+			<table id="example" class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>部门编号</th>
+						<th>部门名称</th>
+						<th>上级部门</th>
+						<th>校徽</th>
+						<th>排名</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</form>
 	</div>
-
-	<div class="row">
-
-		<div class="col-md-3">
-			<div class="portlet blue box">
-				<div class="portlet-title">
-					<div class="caption">
-						<i class="fa fa-cogs"></i>系统及服务接口
-					</div>
-				</div>
-				<div class="portlet-body" id="apiTreePanelDiv">
-					<div id="apiTreePanel"></div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-9">
-			<div class="portlet blue box">
-				<div class="portlet-title">
-					<div class="caption">
-						<i class="fa fa-cogs"></i>服务接口维护
-					</div>
-				</div>
-				<div class="portlet-body" id="apiServiceContentDiv">
-					<div id="apiServiceContent"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<table id="example" class="display" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th>部门编号</th>
-					<th>部门名称</th>
-					<th>上级部门</th>
-					<th>校徽</th>
-					<th>排名</th>
-				</tr>
-			</thead>
-			<tbody></tbody>
-		</table>
-	</div>
-	<div class="row">
-		<div class="col-md-6 thumbnail">
-			<a href="#"><img src="images/Outbreak.jpg"></a>
-			<div class="caption">
-				<h4>越狱</h4>
-			</div>
-		</div>
-		<div class="col-md-6 thumbnail">
-			<a href="#"><img src="images/Sala.jpg"></a>
-			<div class="caption">
-				<h4>Sala</h4>
-			</div>
-		</div>
-	</div>
-
-	<!-- <div id="jstree_data"></div> -->
-
-
 </body>
 </html>
