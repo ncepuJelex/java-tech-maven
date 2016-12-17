@@ -95,5 +95,10 @@
 			<artifactId>slf4j-ext</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.github.pagehelper</groupId>
+		    <artifactId>pagehelper</artifactId>
+		</dependency>
+		
   </dependencies>
 </project>
