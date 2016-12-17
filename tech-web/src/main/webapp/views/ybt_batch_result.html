@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ybt-batch maintenance</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" href="../css/bootstrapValidator.min.css" />
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <!-- form: -->
+        <section>
+            <div class="page-header">
+                <h1>银保通批处理运维</h1>
+            </div>
+
+            <div class="col-lg-8 col-lg-offset-2">
+                <form id="ybtbatchResultForm" method="GET" action="/tech-web/datatable/getJsonData.do" target="_blank" class="form-horizontal">
+                    <fieldset>
+                        <legend>查询批处理执行结果</legend>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">银行</label>
+                            <div class="col-lg-5">
+                                <select class="form-control" name="bank" id="bank">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">日期</label>
+                            <div class="col-lg-5">
+                                <div class="input-group date" id="taskDate">
+                                    <input type="text" class="form-control" name="taskDate" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                </div>
+                                <span class="help-block">YYYY-MM-DD</span>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                        <div class="col-lg-9 col-lg-offset-3">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- :form -->
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-1.12.3.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="../js/ybtbatch_result.js"></script>
+</html>

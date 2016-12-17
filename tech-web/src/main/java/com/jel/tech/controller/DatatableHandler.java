@@ -1,11 +1,13 @@
 package com.jel.tech.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONPObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jel.tech.common.datatables.DatatableOrder;
 import com.jel.tech.common.datatables.DatatableRequest;
 import com.jel.tech.common.datatables.DatatableResponse;
 import com.jel.tech.common.json.JsonUtils;
@@ -104,6 +109,36 @@ public class DatatableHandler {
 		response.setRecordsTotal(totalCount); 
 		response.setRecordsFiltered(totalCount);
 		response.setData(results);
+		String json = JsonUtils.toJson(response);
+		logger.info(json);
+		return callback+"("+json+")";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getJsonData4.do", method = RequestMethod.POST,produces="application/json; charset=UTF-8")
+	public String getDataTables(String callback,@RequestBody DatatableRequest request) {
+		
+		DatatableResponse<Dept> response = new DatatableResponse<Dept>();
+		response.setDraw(request.getDraw());
+		//分页
+		Integer start = request.getStart();
+		Integer length = request.getLength();
+		PageHelper.startPage(start, length);
+		//对应数据库中的列名称
+		String [] columnNames = {"dept_id","dept_name","parent_id","icon","rank"};
+		//排序
+		for(DatatableOrder order : request.getOrder()) {
+			order.setDir(StringUtils.join(Arrays.asList(columnNames[order.getColumn()], order.getDir()), " "));
+		}
+		String orderBy = StringUtils.join(request.getOrder().stream().map(DatatableOrder::getDir).toArray(), ",");
+		PageHelper.orderBy(orderBy);
+		
+		List<Dept> depts = deptService.queryDeptList();
+		PageInfo<Dept> pageInfo = new PageInfo<Dept>(depts);
+		
+		response.setRecordsTotal((int)pageInfo.getTotal()); 
+		response.setRecordsFiltered((int)pageInfo.getTotal());
+		response.setData(pageInfo.getList());
 		String json = JsonUtils.toJson(response);
 		logger.info(json);
 		return callback+"("+json+")";
