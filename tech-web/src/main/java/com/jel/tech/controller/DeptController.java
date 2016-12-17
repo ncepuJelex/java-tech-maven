@@ -52,7 +52,7 @@ public class DeptController {
 		dept.setDeptName(collegeAddForm.getCollegeName());
 		dept.setIcon("/tech-web/images/cart.gif");
 		dept.setParentId(collegeAddForm.getParentId());
-		dept.setOrder((int)Math.ceil(Math.random()*100));
+		dept.setRank((int)Math.ceil(Math.random()*100));
 		
 		try {
 			deptService.saveCollege(dept);
@@ -198,7 +198,7 @@ public class DeptController {
 		
 		Dept dept = new Dept();
 		dept.setIcon(imgDir + "/images/" + imgName);
-		dept.setOrder((int)Math.ceil(Math.random()*100));
+		dept.setRank((int)Math.ceil(Math.random()*100));
 		
 		try {
 			deptService.saveCollegeSelective(dept);
