@@ -6,23 +6,29 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONPObject;
+import com.jel.tech.common.datatables.DatatableRequest;
+import com.jel.tech.common.datatables.DatatableResponse;
+import com.jel.tech.common.json.JsonUtils;
 import com.jel.tech.model.Dept;
 import com.jel.tech.model.QueryVo;
 import com.jel.tech.service.DeptService;
 
-@RequestMapping("/datatable")
+@RequestMapping("/datatables")
 @Controller
 public class DatatableHandler {
-
+	private static final Logger logger = LoggerFactory.getLogger(DatatableHandler.class);
 	@Autowired
 	private DeptService deptService;
 
@@ -69,8 +75,37 @@ public class DatatableHandler {
 	    
 	    JSONPObject obj = new JSONPObject(callback);
 	    obj.addParameter(map);
-	    
+	    logger.info(obj.toString());
 	    return obj.toString();
 	  } 
+	
+	@ResponseBody
+	@RequestMapping(value = "/getJsonData3.do", method = RequestMethod.POST)
+	public String getDataTable(String callback,@RequestBody DatatableRequest request) {
 
+		DatatableResponse<Dept> response = new DatatableResponse<Dept>();
+		response.setDraw(request.getDraw());
+
+		Integer start = request.getStart();
+		Integer length = request.getLength();
+
+		int totalCount = deptService.queryDeptCount(null);
+		if (length == -1) {
+			length = totalCount;
+		}
+		PageRequest pageable = new PageRequest((start / length), length);
+
+		QueryVo vo = new QueryVo();
+		// vo.setKeywords(keywords);
+		vo.setPageable(pageable);
+
+		List<Dept> results = deptService.queryDeptsByKeywords(vo);
+
+		response.setRecordsTotal(totalCount); 
+		response.setRecordsFiltered(totalCount);
+		response.setData(results);
+		String json = JsonUtils.toJson(response);
+		logger.info(json);
+		return callback+"("+json+")";
+	}
 }

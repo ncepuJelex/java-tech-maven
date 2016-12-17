@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>主页</title>
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff" />
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2" />
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf" />
+
+<link rel="stylesheet" href="css/datatables.min.css" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+<script type="text/javascript" src="js/datatables.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#datatables").click(function() {
+			var otable = $("#example").dataTable();
+			 if(otable) {
+				 otable.fnDestroy();
+			 }
+			
+			 $("#example").dataTable({  
+				  "processing": true,  
+				  'serverSide': true,  
+				  "pagingType": "full_numbers",
+	              "lengthMenu": [ [10,15,20,-1], [10,15,20,"所有"] ],
+	              "language": {
+	                  "url": "js/luaguage.json"
+	              },
+				  'ajax' : {
+					  'url' : '/tech-web/datatables/getJsonData3.do',
+					  'dataType': 'jsonp',  
+				      'type': 'POST',
+				    	  'contentType': 'application/json; charset=utf-8',
+				    	  'data': function (d) {
+				    		  console.log(d);
+			              return JSON.stringify(d);
+			           }/* ,
+	              	dataFilter: function(data){
+	       			  alert(1);
+	       			  console.log(data);
+	                  var json = JSON.parse( data );
+	                  alert(2);
+	                  console.log(json);
+	                  
+	                  return JSON.stringify(json); // return JSON string
+	                } */
+				  },
+				  columns: [
+						{'data':'deptId'},
+				  		{'data':'deptName'},
+				  		{'data':'parentId'},
+				  		{'data':'icon'},
+				  		{'data':'order'}
+			 	  ],
+			 	 order: [[ 0, 'asc' ]] 
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="container">
+		<button id="datatables" class="btn btn-success" type="button">datatables</button>
+		<form action="" id="form" method="POST">
+			<table id="example" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>部门编号</th>
+						<th>部门名称</th>
+						<th>上级部门</th>
+						<th>校徽</th>
+						<th>排名</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
