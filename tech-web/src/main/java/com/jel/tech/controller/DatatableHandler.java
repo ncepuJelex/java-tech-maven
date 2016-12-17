@@ -80,7 +80,7 @@ public class DatatableHandler {
 	  } 
 	
 	@ResponseBody
-	@RequestMapping(value = "/getJsonData3.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/getJsonData3.do", method = RequestMethod.POST,produces="application/json; charset=UTF-8")
 	public String getDataTable(String callback,@RequestBody DatatableRequest request) {
 
 		DatatableResponse<Dept> response = new DatatableResponse<Dept>();
