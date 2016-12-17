@@ -1,4 +1,4 @@
-package com.jel.tech.mongodb;
+/*package com.jel.tech.mongodb;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -45,9 +45,9 @@ import com.jel.tech.mongodb.model.Venue;
 import com.jel.tech.mongodb.service.PersonService;
 import com.mongodb.WriteResult;;
 
-/**
+*//**
  * Spring4JUnit test for simple App.
- */
+ *//*
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:mongodb-applicationContext.xml")
 public class MongoTest {
@@ -73,13 +73,13 @@ public class MongoTest {
 		// mongoOps.dropCollection(Person.class);
 	}
 	
-	/*
+	
 	 * 测试Type mapping，注意查看mongo库中保存的状态是不是如下：
 	 	{ "_class" : "com.acme.Sample",
 	      "value" : { "_class" : "com.acme.Person" }
 	    }
-	 */
-	/*
+	 
+	
 	 * 结果如下：
 	 > db.sample.find();
 		{ "_id" : ObjectId("5842df826cdc950629c506f1"),
@@ -88,7 +88,7 @@ public class MongoTest {
 		   "_id" : null, "name" : "concactPerson", "age" : 33
 		   }
 		 }
-	 */
+	 
 	@Test
 	public void fun2() {
 		Sample sample = new Sample();
@@ -137,11 +137,11 @@ public class MongoTest {
 //		mongoOps.remove(p);//删除
 	}
 	
-	/**
+	*//**
 	 * 如果你想级联插入，并且想让子集合自动生成主键，那么子集合也得有insert操作，
 	 * 如果只想插入主集合，那么设置关联关系后保存到库中时，子集合的主键如果不主动设置子集合
 	 * 的主键值，那么它为会为null
-	 */
+	 *//*
 	@Test
 	public void testJiLian() {
 		Person p = new Person("Dony",28);
@@ -153,10 +153,10 @@ public class MongoTest {
 		
 		mongoOps.insert(p);
 	}
-	/*
+	
 	 * 使用原生的mongodb语句查询:
 	 * 不过为什么查询子文档不好使呢？？？
-	 */
+	 
 	@Test
 	public void testBasicQuery() {
 		BasicQuery query = new BasicQuery("{age:{$gte:28},name:'Dony'}");
@@ -166,9 +166,9 @@ public class MongoTest {
 		log.info("============================");
 		log.info("the result:{},date:{}", result,new Date());
 	}
-	/*
+	
 	 * 查询子文档
-	 */
+	 
 	@Test
 	public void testQueryDoc() {
 		List<Person> list = mongoOps.find(query(where("age").gte(28).and("address.qq").is("1007792878")), Person.class);
@@ -192,9 +192,9 @@ public class MongoTest {
 		GeoResults<Restanrant> nearRestanrants = mongoOps.geoNear(query, Restanrant.class);
 	}
 	
-	/**
+	*//**
 	 * Query by Example
-	 */
+	 *//*
 	@Test
 	public void fun3() {
 		Person person = new Person("高圆圆",26);
@@ -231,4 +231,4 @@ public class MongoTest {
 		System.err.println(page.getSize());
 	}
 	
-}
+}*/
