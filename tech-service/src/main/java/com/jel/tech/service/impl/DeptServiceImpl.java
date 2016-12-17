@@ -36,7 +36,7 @@ public class DeptServiceImpl implements DeptService {
 			tree.setId(dept.getDeptId());
 			tree.setText(dept.getDeptName());
 			tree.setIcon(dept.getIcon());
-			tree.setOrder(dept.getOrder());
+			tree.setOrder(dept.getRank());
 			tree.setParentId(dept.getParentId());
 			
 			map.put(tree.getId(), tree);
