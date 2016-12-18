@@ -133,7 +133,7 @@ public class DatatableHandler {
 		String orderBy = StringUtils.join(request.getOrder().stream().map(DatatableOrder::getDir).toArray(), ",");
 		PageHelper.orderBy(orderBy);
 		
-		List<Dept> depts = deptService.queryDeptList();
+		List<Dept> depts = deptService.queryDeptByName(request.getParamMap());
 		PageInfo<Dept> pageInfo = new PageInfo<Dept>(depts);
 		
 		response.setRecordsTotal((int)pageInfo.getTotal()); 
