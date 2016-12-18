@@ -2,6 +2,7 @@ package com.jel.tech.common.datatables;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -9,7 +10,6 @@ import java.util.List;
  *
  */
 public class DatatableRequest {
-
 	/**
 	 * Draw counter. This is used by DataTables to ensure that the Ajax returns
 	 * from server-side processing requests are drawn in sequence by DataTables
@@ -42,6 +42,12 @@ public class DatatableRequest {
 	 * otherwise a multi-column sort is being performed.
 	 */
 	private List<DatatableOrder> order = Collections.<DatatableOrder>emptyList();
+	/**
+	 * request params(search conditions) a user input to search.
+	 *  key:param name,
+	 *  value:param value.
+	 */
+	private Map<String, Object> paramMap = Collections.emptyMap();
 
 	public Integer getDraw() {
 		return draw;
@@ -89,6 +95,14 @@ public class DatatableRequest {
 
 	public void setOrder(List<DatatableOrder> order) {
 		this.order = order;
+	}
+
+	public Map<String, Object> getParamMap() {
+		return paramMap;
+	}
+
+	public void setParamMap(Map<String, Object> paramMap) {
+		this.paramMap = paramMap;
 	}
 
 }
