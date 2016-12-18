@@ -44,6 +44,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryDepts" resultMap="deptMap" >
 		select * from t_dept
 	</select>
+
+	<select id="queryDeptByName" resultMap="deptMap" parameterType="java.util.Map">
+		select * from t_dept
+		<where>
+			<if test="deptName != null">
+				dept_name LIKE CONCAT('%',#{deptName},'%')
+			</if>
+		</where>
+	</select>
 	
 	<select id="queryDeptsByKeywords" resultMap="deptMap" parameterType="QueryVo">
 		select * from t_dept
