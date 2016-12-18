@@ -57,7 +57,7 @@
 		with 'running' and '2016-12-18' be their values respectively,
 		by the way,the taskDate can be a datetimepicker selected value and that's the sugguested way;
 
-	dataColumns: the columns you would like to show in the DataTable,autually,they are corresponding to the position
+	dataColumns: the columns you would like to show in the DataTable,actually,they are corresponding to the position
  		at the table->thread->tr>th element and it's an array filled with js object. below is an example:
 
 			 columns = [

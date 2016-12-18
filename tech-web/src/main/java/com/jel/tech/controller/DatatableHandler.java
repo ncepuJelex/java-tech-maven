@@ -127,6 +127,18 @@ public class DatatableHandler {
 		//对应数据库中的列名称
 		String [] columnNames = {"dept_id","dept_name","parent_id","icon","rank"};
 		//排序
+		/*
+		 * request.getOrder()中的数据可能如下：
+		 * [DatatableOrder [column=0, dir=asc], DatatableOrder [column=2, dir=desc]]
+		 * 经过for循环处理后：
+		 * [DatatableOrder [column=0, dir=dept_id asc], DatatableOrder [column=2, dir=parent_id desc]]
+		 * 此时，orderBy = dept_id asc,dir=parent_id desc
+		 * 至此组成完整的sql语句：
+		 * select * from tableName 
+		 * where condition 
+		 * limit start, length 
+		 * order by dept_id asc,dir=parent_id desc
+		 */
 		for(DatatableOrder order : request.getOrder()) {
 			order.setDir(StringUtils.join(Arrays.asList(columnNames[order.getColumn()], order.getDir()), " "));
 		}
@@ -141,6 +153,9 @@ public class DatatableHandler {
 		response.setData(pageInfo.getList());
 		String json = JsonUtils.toJson(response);
 		logger.info(json);
+		/*
+		 * jQuery111305123673508038207_1482069843425({"draw":1,"recordsTotal":12,"recordsFiltered":12,"data":[{"deptId":1,"deptName":"大学","parentId":-1,"icon":"http://localhost:8080/tech-web/images/cart.gif","rank":1},{"deptId":10,"deptName":"综合大学","parentId":1,"icon":"http://localhost:8080/tech-web/images/cart.gif","rank":10},{"deptId":11,"deptName":"专业大学","parentId":1,"icon":"http://localhost:8080/tech-web/images/cart.gif","rank":11},{"deptId":101,"deptName":"清华大学","parentId":10,"icon":"http://localhost:8080/tech-web/images/cart.gif","rank":101},{"deptId":102,"deptName":"北京大学","parentId":10,"icon":"http://localhost:8080/tech-web/images/cart.gif","rank":102},{"deptId":103,"deptName":"华北电力大学","parentId":11,"icon":"http://localhost:8080/tech-web/images/cart.gif","rank":103},{"deptId":104,"deptName":"河海大学","parentId":10,"icon":"http://localhost:8080/tech-web/images/cart.gif","rank":104},{"deptId":105,"deptName":"野鸡大学","parentId":11,"icon":"http://localhost:8080/tech-web/images/cart.gif","rank":105},{"deptId":110,"deptName":"耶鲁大学","parentId":11,"icon":"/tech-web/images/cart.gif","rank":17},{"deptId":111,"deptName":"剑桥大学","parentId":11,"icon":"/tech-web/images/cart.gif","rank":24}]})
+		 */
 		return callback.concat("(").concat(json).concat(")");
 	}
 }
