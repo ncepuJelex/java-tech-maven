@@ -66,7 +66,10 @@ public class DeptServiceImpl implements DeptService {
 	public List<Dept> queryDeptList() {
 		return deptDao.queryDepts();
 	}
-
+	
+	public List<Dept> queryDeptByName(Map<String, Object> map) {
+		return deptDao.queryDeptByName(map);
+	}
 	@Override
 	public int queryDeptCount(String keywords) {
 		return deptDao.queryDeptCount(keywords);
