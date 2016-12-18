@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>主页</title>
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff" />
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2" />
+<link rel="stylesheet" href="css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.ttf" />
+
+<link rel="stylesheet" href="css/datatables.min.css" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+<script type="text/javascript" src="js/datatables.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#datatables").click(function() {
+			var otable = $("#example").dataTable();
+			 if(otable) {
+				 otable.fnDestroy();
+			 }
+			
+			 $("#example").dataTable({  
+				  "processing": true,  
+				  'serverSide': true,  
+				  "pagingType": "full_numbers",
+				  "searching":false,
+	              "lengthMenu": [ [10,15,20,50,100], [10,15,20,50,100] ],
+	              "language": {
+	                  "url": "js/luaguage.json"
+	              },
+	              
+	              /* 
+	              Add data to the request, returnng an object by extending the default data:
+	              $('#example').dataTable( {
+					  "ajax": {
+					    "url": "data.json",
+					    "data": function ( d ) {
+					      return $.extend( {}, d, {
+					        "extra_search": $('#extra').val()
+					      } );
+					    }
+					  }
+					} ); */
+					/* 
+					Add data to the request by manipulating the data object:
+					$('#example').dataTable( {
+					  "ajax": {
+					    "url": "data.json",
+					    "data": function ( d ) {
+					        d.extra_search = $('#extra').val();
+					    }
+					  }
+					} );*/
+				  'ajax' : {
+					  'url' : '/tech-web/datatables/getJsonData4.do',
+					  'dataType': 'jsonp',  
+				      'type': 'POST',
+				    	  'contentType': 'application/json; charset=utf-8',
+				    	  'data': function (d) {
+				    		  console.log(d);
+				    		  d.searchParams = {
+				    			  deptName : '华北电力大学'
+				    		  };
+			              return JSON.stringify(d);
+			           }
+				  },
+				  columns: [
+						{'data':'deptId'},
+				  		{'data':'deptName'},
+				  		{'data':'parentId'},
+				  		{'data':'icon'},
+				  		{'data':'rank'}
+			 	  ],
+			 	 order: [[ 0, 'asc' ]],
+			 	 "drawCallback": function( settings ) {
+			         var api = this.api();
+					  console.log(api);
+					  alert('okyou');
+					  console.log(settings);
+			         // Output the data for the visible rows to the browser's console
+			         console.log( api.rows( {page:'current'} ).data() );
+			     }
+			});/* .on( 'draw.dt', function () {
+				console.log( 'Table draw event' );
+			}); */
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="container">
+		<button id="datatables" class="btn btn-success" type="button">datatables</button>
+		<form action="" id="form" method="POST">
+			<table id="example" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>部门编号</th>
+						<th>部门名称</th>
+						<th>上级部门</th>
+						<th>校徽</th>
+						<th>排名</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
