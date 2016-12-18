@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONPObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.jel.tech.common.datatables.DatatableOrder;
-import com.jel.tech.common.datatables.DatatableRequest;
-import com.jel.tech.common.datatables.DatatableResponse;
 import com.jel.tech.common.json.JsonUtils;
 import com.jel.tech.model.Dept;
 import com.jel.tech.model.QueryVo;
+import com.jel.tech.model.datatables.DatatableOrder;
+import com.jel.tech.model.datatables.DatatableRequest;
+import com.jel.tech.model.datatables.DatatableResponse;
 import com.jel.tech.service.DeptService;
 
 @RequestMapping("/datatables")
@@ -141,6 +141,6 @@ public class DatatableHandler {
 		response.setData(pageInfo.getList());
 		String json = JsonUtils.toJson(response);
 		logger.info(json);
-		return callback+"("+json+")";
+		return callback.concat("(").concat(json).concat(")");
 	}
 }
