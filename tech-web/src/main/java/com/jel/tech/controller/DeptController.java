@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.w3c.dom.Document;
 
+import com.jel.tech.common.date.DateUtils;
 import com.jel.tech.common.json.JsonUtils;
 import com.jel.tech.message.ResponseMessage;
 import com.jel.tech.message.ResponseStatus;
@@ -38,7 +40,7 @@ import com.jel.tech.service.DeptService;
 @RequestMapping("/dept")
 public class DeptController {
 
-	private static final Logger logger = Logger.getLogger(DeptController.class);
+	private static final Logger logger = LoggerFactory.getLogger(DeptController.class);
 	
 	@Autowired
 	private DeptService deptService;
@@ -174,6 +176,20 @@ public class DeptController {
 			files[i].transferTo(new File(rootDirectory + System.currentTimeMillis()+files[i].getName() + ".jpg"));
 		}
 		return "index2";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/ajaxFileUpload.do", method=RequestMethod.POST)
+	public String ajaxFileUpload(HttpServletRequest request,@RequestParam CommonsMultipartFile file) throws Exception {
+		
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		File destFile = new File(rootDirectory +File.separator + DateUtils.format(new Date(), "yyyyMMdd")+File.separator+file.getFileItem().getName());
+		logger.info("uploaded file saved destination:{}", destFile.getAbsolutePath());
+		if(!destFile.exists()) {
+			destFile.mkdirs();
+		}
+		file.transferTo(destFile);
+		return "file upload succes!";
 	}
 	
 	@ResponseBody

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax file upload</title>
+    <script type="text/javascript" src="../js/jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="../js/jquery.ajaxfileupload.js"></script>
+    <script>
+        $(function() {
+
+            $('#file').ajaxfileupload({
+                action: '/tech-web/dept/ajaxFileUpload.do',
+                onStart: function() {
+                    //if(no) return false; // cancels upload
+                },
+                onCancel: function() {
+                    console.log('no file selected');
+                },
+                onComplete: function(response) {
+                    console.log('custom handler for file:');
+                    alert(JSON.stringify(response));
+                },
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <form>
+        照片上传: <input type="file" id="file" name="file">
+    </form>
+
+</body>
+</html>
