@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="/tech-web/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/tech-web/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/tech-web/css/bootstrapValidator.min.css" />
+<link rel="stylesheet" href="/tech-web/css/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2" />
+
+<script type="text/javascript">
+	
+	var DeptEdit = {
+			
+		edit : function() {
+			if($("#dept_cacheData").data("operation") == "dept_update") {
+				var dept = $("#dept_cacheData").data("dept");
+				$("#deptEdit #deptId").val(dept.deptId);
+				$("#deptEdit #deptName").val(dept.deptName);
+				$("#deptEdit #parentId").val(dept.parentId);
+				$("#deptEdit #icon").val(dept.icon);
+				$("#deptEdit #rank").val(dept.rank);
+			}		
+		}
+	};
+
+	$(function() {
+		DeptEdit.edit();
+	});
+</script>
+</head>
+<body>
+	 <div class="container-fluid">
+	  <div class="col-md-8 col-md-offset-2">
+		<form id="deptEdit" name="deptEdit" method="POST" class="form-horizontal" >
+		  	 <fieldset>
+					<div class="form-group">
+						<input type="hidden" id="deptId" name="deptId">
+						<label class="col-lg-3 control-label">*部门名称:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="deptName" name="deptName"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-lg-3 control-label">*上级部门:</label>
+						<div class="col-lg-8">
+							<select id="parentId" name="parentId" class="form-control">
+							</select>								
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">*图标:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control"  name="icon" id="icon"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">*排名:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="rank" id="rank"/>
+						</div>
+					</div>
+			 </fieldset>
+			 <div class="form-group">
+                 <div class="col-lg-9 col-lg-offset-3">
+                     <button type="submit" class="btn btn-primary">提交</button>
+                 </div>
+             </div>
+		</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/tech-web/js/jquery-1.12.3.js"></script>
+<script type="text/javascript" src="/tech-web/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/tech-web/js/bootstrapValidator.min.js"></script>
+</html>

@@ -155,6 +155,9 @@ var dataTable = {
 			columnDefs:dataColumnDefs,
 			order: [[ 0, 'asc' ]],
 			"drawCallback": function( settings ) {
+//				console.log(settings);
+//				console.log(otable);
+//				console.log(otable.fnSettings());
 				callback();
 			}
 		});
