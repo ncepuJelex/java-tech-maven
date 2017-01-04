@@ -99,6 +99,10 @@
 		    <groupId>com.github.pagehelper</groupId>
 		    <artifactId>pagehelper</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.jel.tech</groupId>
+			<artifactId>model-public</artifactId>
+			<version>${project.version}</version>
+		</dependency>
   </dependencies>
 </project>

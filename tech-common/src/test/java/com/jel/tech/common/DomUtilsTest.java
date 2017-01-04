@@ -7,11 +7,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.dom4j.Document;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jel.tech.common.date.DateUtils;
 import com.jel.tech.common.xml.DomUtils;
 
 public class DomUtilsTest {
@@ -62,5 +65,20 @@ public class DomUtilsTest {
 		Reader reader = new FileReader(f);
 		Document document = DomUtils.loadFromReader(reader);
 		System.out.println(document.asXML());
+	}
+	@Test
+	public void test5() {
+	   String str="2017-01-04";
+	   Date cz=DateUtils.parse(str);
+	   System.out.println(cz);
+	}
+	@Test
+	public void test6(){
+		String str="2017-01-04";
+		Date date=new Date();
+		String format = DateUtils.format(date,"yyyy-Mxd");
+		System.out.println(format);
+		
+ 
 	}
 }
