@@ -1,10 +1,10 @@
 package com.jel.tech.common;
 
-import org.junit.Test;
+//import org.junit.Test;
 
-import com.jel.tech.common.restful.RestfulRequest;
-import com.jel.tech.common.restful.RestfulResponse;
-import com.jel.tech.common.restful.RestfulUtils;
+//import com.jel.tech.common.restful.RestfulRequest;
+//import com.jel.tech.common.restful.RestfulResponse;
+//import com.jel.tech.common.restful.RestfulUtils;
 /**
  * 
  * @author winnie.wang 王冰韬
@@ -12,7 +12,7 @@ import com.jel.tech.common.restful.RestfulUtils;
  * description：测试restful服务
  */
 public class RestfulUtilsTest {
-	
+	/*
 	@Test
 	public void restful(){
 		
@@ -27,7 +27,7 @@ public class RestfulUtilsTest {
 		System.err.println(response);
 		System.err.println(response.getResponseJSON());
 		
-	}
+	}*/
 	
 	
 	
