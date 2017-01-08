@@ -59,7 +59,7 @@ public class FtpUtils {
 		 * 	This will cause the file upload/download methods to send 
 		 * 	a NOOP approximately every 5 minutes.
 		 */
-//		ftp.setControlKeepAliveTimeout(300); // set timeout to 5 minutes
+		ftp.setControlKeepAliveTimeout(300); // set timeout to 5 minutes
 		ftp.setControlEncoding("UTF-8");
 		
 		/*ftp.setControlEncoding("GBK");
@@ -162,7 +162,7 @@ public class FtpUtils {
 		config.setServerTimeZoneId(TimeZone.getDefault().getID());
 		ftp.configure(config);*/
 		
-//		ftp.setControlKeepAliveTimeout(300); // set timeout to 5 minutes
+		ftp.setControlKeepAliveTimeout(300); // set timeout to 5 minutes
 		ftp.setControlEncoding("UTF-8");
 		
 		/*ftp.setControlEncoding("GBK");
@@ -255,7 +255,7 @@ public class FtpUtils {
 		 * 	This will cause the file upload/download methods to send 
 		 * 	a NOOP approximately every 5 minutes.
 		 */
-//		ftp.setControlKeepAliveTimeout(300); // set timeout to 5 minutes
+		ftp.setControlKeepAliveTimeout(300); // set timeout to 5 minutes
 		ftp.setControlEncoding("UTF-8");
 		
 		boolean success = true;
