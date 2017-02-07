@@ -35,5 +35,5 @@ public class DatatableOrder {
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
-
+	
 }

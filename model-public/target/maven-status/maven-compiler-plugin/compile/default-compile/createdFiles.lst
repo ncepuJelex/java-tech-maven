@@ -1,8 +1,14 @@
-com/jel/tech/model/DataTable.class
 com/jel/tech/model/College.class
+com/jel/tech/model/datatables/DatatableOrder.class
 com/jel/tech/model/QueryVo.class
 com/jel/tech/model/User.class
 com/jel/tech/model/Dept.class
-com/jel/tech/model/Tree.class
 com/jel/tech/message/ResponseMessage.class
 com/jel/tech/message/ResponseStatus.class
+com/jel/tech/model/datatables/DatatableColumn.class
+com/jel/tech/model/datatables/DatatableRequest.class
+com/jel/tech/model/datatables/DatatableResponse.class
+com/jel/tech/model/DataTable.class
+com/jel/tech/model/Tree.class
+com/jel/tech/model/datatables/OrderDirection.class
+com/jel/tech/model/datatables/DatatableSearch.class
